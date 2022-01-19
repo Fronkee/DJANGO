@@ -1,0 +1,144 @@
+Start Up
+
+ => pip knowledge
+ => Virtualenv Project
+ => SQLite Installation
+ => Admin Panel
+ => Custom App
+ => Templating  
+ => Models
+ => Form Handling
+ => CRUD
+ => Relational Database
+ => User Authentication
+ => Role base Decorators
+
+
+Installation Extension for vscode
+    -> django -intellisense
+    -> SQLite
+
+1. pip = package/dependencide manager
+    -> pip list
+    -> pip show requests
+    -> pip uninstall pip
+    -> easy_install pip
+
+2. Virtualenv Project 
+-> powershell
+        ->virtualenv env    
+            -> create env module
+
+        ** activate  env** important
+            ->mac , source env/bin/activate
+            ->window, ./env/Scripts/activate
+        - If not activate error - 
+            -Get-ExecutionPolicy
+            - set-executionpolicy remotesigned - A
+
+        - pip install django    
+        - python -m django --version <- check django version
+        - django-admin
+        - django-admin startproject [name]
+   
+
+        Runserver
+            - gci -name <= show directory 
+            - cd app 
+            - python manage.py runserver
+
+3. SQLite Installation
+ .show
+ .help  
+
+ - Admin Activation
+     * migration is table * 
+    - python manage.py makemigrations    
+    - python mangae.py migrate => default migration      
+
+    " create user"
+     - python manage.py createsuperuser
+
+4.  Custom App
+     - python manage.py startapp category 
+
+    " create two views " category/views
+     - return HttpResponse('I am Category')
+
+        data = {
+            'title' : 'welcome'
+        }
+     - return render(request,'category/cats.html',data)
+
+    " url "<= app
+       -w,1
+        from category import views as cat_views
+        path('cats/',cat_views.cats),
+
+       -w,2*
+         category/urls
+            from django.urls import path
+            from .views import *
+            urlpatterns = [ 
+                path('',cats,name='cats'),
+                path('subs/',subs,name='subs')
+            ]
+         app/urls    
+            from django.urls import path,include
+            path('cats/',include('category.urls'))
+
+
+
+5. Template engine (jinja2) 
+    - templates/category
+        - {% extends 'app/base.html'%}
+        -cats.html
+        -subs.html
+
+    - templates/app
+        -base.html
+           {% load static %} !h for static image,css,js
+           <link rel="stylesheet" href="{% static 'app/css/custom.css'%}">
+            -jinja2
+             {% include 'app/nav.html'%}
+             {% block content %} {% endblock %} !h
+
+    - static/app !h naming convention
+        css
+            -custom.css
+        images
+            -png,jpg    
+  
+
+6. Category model
+    -category/models 
+        class Category(models.Model):
+            name = models.CharField(max_length=100)
+            image = models.ImageField()
+        **pillow libiary for image    
+
+    -> python manage.py makemigrations -> 0001_migrations
+    -> python manage.py sqlmigrate category 0001   @know
+    -> python manage.py  migrate       
+
+    Admin Register
+        category/admin
+            - from .models import Category <- for show admin panel
+             -admin.site.register(Category)
+
+    ** For Right Image Media **
+        app/setting
+             import os
+            -MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+            -MEDIA_URL = '/media/'
+
+        app/urls 
+           from django.conf import settings
+           from django.conf.urls.static import static 
+
+           if settings.DEBUG:
+                urlpatterns += static(
+                    settings.MEDIA_URL,
+                    document_root=settings.MEDIA_ROOT
+                )     
+
