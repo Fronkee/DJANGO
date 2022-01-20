@@ -2,5 +2,36 @@
 <!-- jinja3* -->
 {% block content %}
 <h1 class="text-success text-center">I am sub Categories</h1>
+<div class="col-md-8 offset-md-2">
+    <a href="{% url 'subs-create' %}" class="btn btn-sm btn-primary float-end">
+        <span class="">Create</span>
+        <i class="material-icons">add</i>
+    </a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>parent</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub in subs %}
+            <tr>
+                <th>{{sub.id}}</th>
+                <td>{{sub.name}}</td>
+                <td><img src="{{sub.image.url}}" width="30" height="30" alt=""></td>
+                <td>{{sub.parent.name}}</td>
+                <td>
+                    <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
+                    <button class="btn btn-sm btn-warning"><i class="material-icons">edit</i></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 <!-- jinja2* -->
 {% endblock %}

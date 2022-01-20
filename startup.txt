@@ -142,3 +142,26 @@ Installation Extension for vscode
                     document_root=settings.MEDIA_ROOT
                 )     
 
+7. Form Handling
+    category/forms.py
+        from django import forms
+        from .models import SubCategory
+        class SubCatFrom(forms.ModelForm):
+            class Meta:
+                model = SubCategory
+                fields = '__all__'
+
+    * for design crispy-bootstarp5*
+        pip install crispy-bootstarp5   
+
+    app/settings
+        INSTALLED_APPS = [
+            'crispy_forms',
+            'crispy_bootstrap5'
+        ]
+        CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+        CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+    category/create_sub.html 
+        -{{% load crispy_forms_tags %}}    
