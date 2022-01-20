@@ -151,6 +151,17 @@ Installation Extension for vscode
                 model = SubCategory
                 fields = '__all__'
 
+    category/model.py
+        from .forms import SubCatFrom,CatForm
+        def createCat(request):
+            if request.method == 'POST':
+                form = CatForm(request.POST,request.FILES)
+                if form.is_valid():
+                    form.save()
+                    return redirect('/cats')
+            else:
+                return render(request,'category/create_cats.html',{'form':CatForm})
+                
     * for design crispy-bootstarp5*
         pip install crispy-bootstarp5   
 

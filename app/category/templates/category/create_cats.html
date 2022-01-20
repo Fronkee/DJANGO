@@ -1,0 +1,12 @@
+{% extends 'app/base.html'%} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container my-5  ">
+    <h1 class="text-center text-info">Crate Category Item</h1>
+    <div class="col-md-8 offset-md-2">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{ form | crispy }}
+            <button type="submit" class="btn btn-sm btn-danger float-end">Create</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -4,5 +4,6 @@ from .views import *
 urlpatterns = [ 
     path('',cats,name='cats'),
     path('subs/',subs,name='subs'),
-    path('subs/create',createSub,name='subs-create')
+    path('subs/create',createSub,name='subs-create'),
+    path('create',createCat,name='cats-create')
 ]
