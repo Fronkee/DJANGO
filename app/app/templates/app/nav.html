@@ -2,7 +2,7 @@
 <div class="container-fluid bg-light">
     <nav class="container navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'home'%}">
                 <img src="{% static 'app/images/cg.png' %}" alt="" width="30" height="30">
                 <span>Django</span>
             </a>
@@ -12,7 +12,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>

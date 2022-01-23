@@ -5,6 +5,10 @@ from .forms import SubCatFrom,CatForm
 
 
 # Create your views here.
+def home(request):
+    return render(request,'category/home.html')
+
+
 def cats(request):
     data ={
         'title':'Categories',
@@ -19,7 +23,11 @@ def createCat(request):
             form.save()
             return redirect('/cats')
     else:
-        return render(request,'category/create_cats.html',{'form':CatForm})
+        print("get method")
+        form = CatForm()
+
+    return render(request,'category/create_cats.html',{'form':form})
+    
 
 def subs(request):
     data = {

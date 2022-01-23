@@ -13,7 +13,7 @@ class CatForm(forms.ModelForm):
     
     def __init__(self,*args,**kwargs):
         super(CatForm,self).__init__(*args,**kwargs)
-        self.fields['name'].required = False
+        self.fields['name'].required = True
         
 class SubCatFrom(forms.ModelForm):
     class Meta:
