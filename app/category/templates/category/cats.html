@@ -22,8 +22,12 @@
                 <td>{{cat.name}}</td>
                 <td><img src="{{cat.image.url}}" width="30" height="30" alt="" class="rounded"></td>
                 <td>
-                    <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
-                    <button class="btn btn-sm btn-warning"><i class="material-icons">edit</i></button>
+                    <a href="{% url 'cat-delete' cat.id %}" class="btn btn-sm btn-danger">
+                        <i class="material-icons">delete</i>
+                    </a>
+                    <a href="{% url 'cat-edit' cat.id %}" class=" btn btn-sm btn-warning ">
+                        <i class="material-icons ">edit</i>
+                    </a>
                 </td>
             </tr>
             {% endfor %}

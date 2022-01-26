@@ -27,9 +27,28 @@ def createCat(request):
         form = CatForm()
 
     return render(request,'category/create_cats.html',{'form':form})
-    
 
+def catDelete(request,id):
+    result = Category.objects.get(pk=id)
+    result.delete()
+    return redirect('/cats')
+    
+def catEdit(request,id):
+    result = Category.objects.get(pk=id)
+    if request.method == 'POST':
+        form = CatForm(request.POST,request.FILES,instance=result)
+        if form.is_valid():
+            form.save()
+            return redirect('/cats')
+    else:
+        form = CatForm(instance=result)
+    
+    return render(request,'category/cat_edit.html',{'form':form})
+
+
+# for SubCategory
 def subs(request):
+    print("Sub page")
     data = {
         'title' : 'Sub Categories'
     }
@@ -43,4 +62,23 @@ def createSub(request):
             form.save()
             return redirect('/cats/subs')
     else:
-        return render(request,'category/create_subs.html',{'form':SubCatFrom})
+        print('Get method')
+        form = SubCatFrom()
+    return render(request,'category/create_subs.html',{'form':form})
+
+def subDelete(request,id):
+    result = SubCategory.objects.get(pk=id)
+    result.delete()
+    return redirect('/cats/subs')
+
+
+def subEdit(request,id):
+    result = SubCategory.objects.get(pk=id)
+    if request.method == 'POST':
+        form = SubCatFrom(request.POST,request.FILES,instance=result)
+        if form.is_valid():
+            form.save()
+            return redirect('/cats/subs')
+    else:
+        form = SubCatFrom(instance=result)
+    return render(request,'category/sub_edit.html',{'form':form})

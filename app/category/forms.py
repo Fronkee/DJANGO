@@ -26,7 +26,7 @@ class SubCatFrom(forms.ModelForm):
         }
     def __init__(self,*args,**kwagrs):
         super(SubCatFrom,self).__init__(*args,**kwagrs)
-        self.fields['name'].required = False    
-        self.fields['image'].required = False    
-        self.fields['parent'].required = False    
+        self.fields['name'].required = True    
+        self.fields['image'].required = True   
+        self.fields['parent'].required = True    
         self.fields['parent'].empty_label= 'Select'    

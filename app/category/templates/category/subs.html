@@ -1,5 +1,5 @@
-{% extends 'app/base.html' %}
-<!-- jinja3* -->
+{% extends 'app/base.html' %} {% load static %}
+<!-- jinja2* -->
 {% block content %}
 <h1 class="text-success text-center">I am sub Categories</h1>
 <div class="col-md-8 offset-md-2">
@@ -25,8 +25,8 @@
                 <td><img src="{{sub.image.url}}" width="30" height="30" alt="" class="rounded"></td>
                 <td>{{sub.parent.name}}</td>
                 <td>
-                    <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
-                    <button class="btn btn-sm btn-warning"><i class="material-icons">edit</i></button>
+                    <a href="{% url 'sub-delete' sub.id %}" class="btn btn-sm btn-danger"><i class="material-icons">delete</i></a>
+                    <a href="{% url 'sub-edit' sub.id %}" class="btn btn-sm btn-warning"><i class="material-icons">edit</i></a>
                 </td>
             </tr>
             {% endfor %}
