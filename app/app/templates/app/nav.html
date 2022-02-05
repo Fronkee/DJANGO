@@ -19,8 +19,8 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
+                        Dropdown
+                        </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'cats' %}">categories</a></li>
                             <li><a class="dropdown-item" href="{% url 'subs' %}">sub categories</a></li>
@@ -30,6 +30,26 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Users
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'user-logout' %}">Logout</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'user-login' %}">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'user-register' %}">Register</a></li>
+                            {% endif%}
+                        </ul>
+                    </li>
+                    <li class="nav-item" onclick="showCart()">
+                        <a class="nav-link  text-dark" aria-current="page" style="cursor: pointer;">
+                            <i class="material-icons">shopping_cart</i>
+                            <span class="cart_count text-white bg-danger">0</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>

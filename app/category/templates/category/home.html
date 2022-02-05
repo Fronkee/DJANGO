@@ -1,3 +1,7 @@
 {% extends 'app/base.html'%} {% block content %}
-<h1>I am Home Page</h1>
-{% endblock%}
+<h1 class="text-center">I am Home Page</h1>
+{% if messages %} {% for msg in messages %}
+<div class="alert alert-success col-md-6 offset-md-3" role="alert">
+    {{msg}}
+</div>
+{% endfor %} {% endif %} {% endblock%}

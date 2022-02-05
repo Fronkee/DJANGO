@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import Category,SubCategory
 from .forms import SubCatFrom,CatForm
+from django.contrib.auth.decorators import login_required
+from .decorators import allow_users
 
 
 # Create your views here.
@@ -16,6 +18,8 @@ def cats(request):
     }
     return render(request,'category/cats.html',data)
 
+@allow_users(allowed_roles=['admins'])
+@login_required
 def createCat(request):
     if request.method == 'POST':
         form = CatForm(request.POST,request.FILES)
@@ -55,6 +59,8 @@ def subs(request):
     subs =  SubCategory.objects.all()
     return render(request,'category/subs.html',{'subs':subs})
 
+
+@login_required
 def createSub(request):
     if request.method == 'POST':
         form = SubCatFrom(request.POST,request.FILES)

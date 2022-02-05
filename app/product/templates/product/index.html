@@ -1,0 +1,50 @@
+{% extends 'app/base.html'%} {% load static %} {% block content %}
+
+<h1 class="text-center text-success mt-5">All Product</h1>
+<div class="container mt-4">
+    <div class="row">
+        {% for product in products%}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{product.image.url}}" height="150" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{product.price}}</p>
+                    <p class="card-text">{{product.category.name}}</p>
+                    <p class="card-text">{{product.sub_cat.name}}</p>
+                    <button onclick="addToCart('{{product.id}}')" class="btn btn-info float-end">
+                        <span class="text-white">Add to Cart <i class="material-icons">shopping_cart</i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    let product = []
+    let item = localStorage.getItem('product_item')
+    if (item != null) {
+        product = JSON.parse(item)
+        document.querySelector('.cart_count').innerHTML = product.length;
+    }
+    let addToCart = (id) => {
+        let index = product.indexOf(id);
+        if (index == -1) {
+            product.push(id)
+        }
+        localStorage.setItem('product_item', JSON.stringify(product))
+        document.querySelector('.cart_count').innerHTML = product.length;
+    }
+
+    let showCart = () => {
+        products = JSON.parse(localStorage.getItem('product_item'));
+        if (products.length > 0) {
+            products = products.join(',');
+            window.location.href = `http://localhost:8000/product/cartview/${products}`
+        } else {
+            alert('Nothing Add To Cart')
+        }
+    }
+</script>
+{% endblock %}

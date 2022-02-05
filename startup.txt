@@ -176,3 +176,60 @@ Installation Extension for vscode
 
     category/create_sub.html 
         -{{% load crispy_forms_tags %}}    
+
+8 . CRUD 
+
+9. User Authentication
+     - python manage.py startapp user
+     - user/templates/user 
+        -register
+        -login
+        -logout
+
+     -user/urls
+        from django.urls import path
+        from django.contrib.auth import views as auth_view   # <=  default login and logout view from django
+        from .views import *               
+
+        urlpatterns = [
+            path('/register',register,name='user-register'),
+            path('/login',auth_view.LoginView.as_view(template_name='user/login.html'),name='user-login'),
+            path('/logout',auth_view.LogoutView.as_view(template_name='user/logout.html'),name='user-logout')
+        ]
+
+    -user/models
+        User._meta.get_field('email')._unique = True
+
+    app/app/settings/
+        LOGIN_REDIRECT_URL ='home'    
+        LOGIN_URL = 'user-login'
+        LOGOUT_REDIRECT_URL = 'home'
+
+10 . Role base Decorators       
+    from django.contrib.auth.decorators import login_required
+
+    @login_required <= decorators
+
+    custom decorators for Role
+        from django.shortcuts import redirect
+
+
+def allow_users(allowed_roles=[]):
+    def decorator(view_fun):
+        def wrapper_fun(request,*args,**kwargs):
+            group = None
+            if request.user.groups.exists():
+                group = request.user.groups.all()[0].name
+            
+            if group in allowed_roles:
+                return view_fun(request,*args,*kwargs)
+            else:
+                return redirect('/user/login/')
+        return wrapper_fun    
+    return decorator
+
+
+
+
+11. Groups
+        
